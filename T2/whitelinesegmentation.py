@@ -1,12 +1,8 @@
 import cv2
 import parametros as p
 import numpy as np
-from auxfunc import RGB2CMYK
-
-def realizar_bordes(img):
-    kernel = np.array([[0,1,0], [0, -4, 0], [0,1,0]])
-    resulting_image = cv2.filter2D(img, -1, kernel)
-    return resulting_image
+from auxfunc import RGB2CMYK, create_binary_img
+from matplotlib import pyplot as plt
 
 def HSV_white_segmentation(img_og, img_hsv):
     mask = cv2.inRange(img_hsv, p.umbrales_white['HSVlow'], p.umbrales_white['HSVhigh'])
@@ -33,28 +29,18 @@ def CMYK_white_segmentation(img_og, img_cmyk):
     mask = np.logical_and(A_low, A_high).astype(np.uint8)
     result = cv2.bitwise_and(img_og, img_og, mask=mask)
     return result
-    
 
-# Cargamos imagen
-img = cv2.imread(p.imagenes['img1'])
-# cambios base de color a RGB, HSV, HSL, CMYK, LUV
-img_RGB = img
-img_HSV = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
-img_HLS = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
-img_CMYK = RGB2CMYK(img)
+def gaussian(img):
+    w = np.array([[1,4,7,4,1], [4,16,26,16,4], [7,26,41,26,7], [4,16,26,16,4], [1,4,7,4,1]])
+    w_1 = (1/273)*w
+    smooth = cv2.filter2D(src=img, ddepth=-1, kernel=w_1)
+    new_s = ((smooth - smooth.min()) * (1/(smooth.max() - smooth.min()) * 255)).astype('uint8')
+    return new_s
 
-# obtenemos imagen segmentada
-img_HSV_seg = HSV_white_segmentation(img, img_HSV)
-img_RGB_seg = RGB_white_segmentation(img, img_RGB)
-img_HSL_seg = HSL_white_segmentation(img, img_HLS)
-img_CMYK_seg = CMYK_white_segmentation(img, img_CMYK)
+def laplace(img):
+    w_2 = np.array([[1,1,1], [1,-8,1], [1,1,1]])
+    cw_1 = cv2.filter2D(src=img, ddepth=-1, kernel=w_2)
+    new_cw1 = ((cw_1 - cw_1.min()) * (1/(cw_1.max() - cw_1.min()) * 255)).astype('uint8')
+    return new_cw1
 
-# hacemos display de los resultados
-# cv2.imshow('og', img)
-# cv2.imshow('HSV', img_HSV_seg)
-# cv2.imshow('RGB', img_RGB_seg)
-# cv2.imshow('HSL', img_HSL_seg)
-# cv2.imshow('CMYK', img_CMYK_seg)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
 

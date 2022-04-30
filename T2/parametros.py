@@ -6,30 +6,26 @@ imagenes = {
     'img1': "../../ImagenesT2/Off side 1.png",
     'img2': "../../ImagenesT2/Off side 2.png",
     'img3': "../../ImagenesT2/Off side 3.png",
-    'img4': "../../ImagenesT2/Off side 4.png",
-    'img5': "../../ImagenesT2/Off side 5.png",
-    'img6': "../../ImagenesT2/Off side 6.png",
+    'img4': "../../ImagenesT2/Off side 4.jpg",
+    'img5': "../../ImagenesT2/Off side 5.jpg",
+    'img6': "../../ImagenesT2/Off side 6.jpg",
 }
 
 umbrales = {
-    'RGBlow': np.array([15, 100, 15]),
-    'RGBhigh': np.array([90, 255, 120]),
-    'HSVlow': (70, 100, 100),
-    'HSVhigh': (80, 255, 255),
-    'HLSlow': np.array([65, 40, 30]),
-    'HLShigh': np.array([100, 220, 220]),
-    'CMYKhigh': np.array([255, 160, 255, 160]),
-    'CMYKlow': np.array([25, 0, 100, 0])
+    'RGBlow': np.array([0, 90, 0]),
+    'RGBhigh': np.array([106, 255, 82]),
+    'HSVlow': (30, 40, 40),
+    'HSVhigh': (70, 255, 160),
+    'HLSlow': np.array([42, 40, 29]),
+    'HLShigh': np.array([85, 201, 205])
 }
 
 umbrales_white = {
     'RGBlow': np.array([250, 250, 250]),
     'RGBhigh': np.array([255, 255, 255]),
-    'HSVlow': (0, 0, 200),
-    'HSVhigh': (255, 55, 255),
+    'HSVlow': np.array([0, 0, 0]),
+    'HSVhigh': np.array([91, 88, 255]),
     'HLSlow': np.array([0, 90, 0]),
-    'HLShigh': np.array([255, 100, 255]),
-    'CMYKhigh': np.array([10, 10, 10, 10]),
-    'CMYKlow': np.array([0, 0, 0, 0])
+    'HLShigh': np.array([255, 100, 255])
 
 }
