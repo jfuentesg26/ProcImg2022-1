@@ -34,8 +34,8 @@ def HSV_with_opening(img, HSV):
     result1 = cv2.bitwise_and(img, img, mask=opening1)
     result2 = cv2.bitwise_and(img, img, mask=opening2)
     result3 = cv2.bitwise_and(img, img, mask=opening3)
-    cv2.imwrite('op1.png', result1)
-    cv2.imwrite('op2.png', result2)
+    # cv2.imwrite('op1.png', result1)
+    # cv2.imwrite('op2.png', result2)
     cv2.imwrite('op3.png', result3)
 
 

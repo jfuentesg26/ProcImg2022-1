@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # leemos imagen en escala de grises
-img = cv2.imread(p.img[3], 0)
+img = cv2.imread(p.img[2], 0)
 h,w = img.shape[0:2]
 # aplicamos transformada y shift
 tf = DFT(img)
@@ -17,4 +17,4 @@ for i in range(len(p.D0)):
         mult = tf*butter_filter
         mult1 = mult*gaussian_LP_filter
         inversa_mult1 = inverse_DFT(mult1)
-        cv2.imwrite("butterHP-" + str(p.D0[i])+ "-" + str(p.D02[j])+ ".png", inversa_mult1)
+        cv2.imwrite("2butterHP-" + str(p.D0[i])+ "-" + str(p.D02[j])+ ".png", inversa_mult1)

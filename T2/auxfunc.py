@@ -13,7 +13,3 @@ def RGB2CMYK(img):
     CMYK = (np.dstack((C,M,Y,K)) * 255).astype(np.uint8)
     return CMYK
 
-def create_binary_img(img_gray):
-    c = (img_gray > 209).astype(np.uint8)
-    c = c*255
-    return c

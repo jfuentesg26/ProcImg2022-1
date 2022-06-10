@@ -21,11 +21,11 @@ umbrales = {
 }
 
 umbrales_white = {
-    'RGBlow': np.array([250, 250, 250]),
+    'RGBlow': np.array([110, 126, 107]),
     'RGBhigh': np.array([255, 255, 255]),
-    'HSVlow': np.array([0, 0, 0]),
-    'HSVhigh': np.array([91, 88, 255]),
-    'HLSlow': np.array([0, 90, 0]),
-    'HLShigh': np.array([255, 100, 255])
+    'HSVlow': np.array([44, 22, 138]),
+    'HSVhigh': np.array([130, 148, 255]),
+    'HLSlow': np.array([46, 115, 28]),
+    'HLShigh': np.array([111, 255, 185])
 
 }

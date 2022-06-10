@@ -1,8 +1,9 @@
+from unittest import result
 import cv2
 import parametros as p
 import numpy as np
-from auxfunc import RGB2CMYK, create_binary_img
 from matplotlib import pyplot as plt
+from greensegmentation import HSV_with_opening
 
 def HSV_white_segmentation(img_og, img_hsv):
     mask = cv2.inRange(img_hsv, p.umbrales_white['HSVlow'], p.umbrales_white['HSVhigh'])
@@ -23,12 +24,10 @@ def RGB_white_segmentation(img_og, img_rgb):
     result = cv2.bitwise_and(img_og, img_og, mask=mask)
     return result
 
-def CMYK_white_segmentation(img_og, img_cmyk):
-    A_low = (img_cmyk >= p.umbrales_white['CMYKlow']).all(axis = 2).astype(np.uint8)
-    A_high = (img_cmyk <= p.umbrales_white['CMYKhigh']).all(axis = 2).astype(np.uint8)
-    mask = np.logical_and(A_low, A_high).astype(np.uint8)
-    result = cv2.bitwise_and(img_og, img_og, mask=mask)
-    return result
+def create_binary_img(img_gray):
+    c = (img_gray > 120).astype(np.uint8)
+    c = c*255
+    return c
 
 def gaussian(img):
     w = np.array([[1,4,7,4,1], [4,16,26,16,4], [7,26,41,26,7], [4,16,26,16,4], [1,4,7,4,1]])
@@ -44,3 +43,21 @@ def laplace(img):
     return new_cw1
 
 
+img = cv2.imread('img/gray1white.png', 0)
+img = laplace(gaussian(img))
+cv2.imwrite('final.png', img)
+
+# img_RGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+# img_HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+# img_HLS = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
+# img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# RGB = cv2.cvtColor(RGB_white_segmentation(img, img_RGB), cv2.COLOR_RGB2BGR)
+# HSV = cv2.cvtColor(HSV_white_segmentation(img, img_HSV), cv2.COLOR_HSV2BGR)
+# HSL = cv2.cvtColor(HSL_white_segmentation(img, img_HLS), cv2.COLOR_HLS2BGR)
+# gray = create_binary_img(img_gray)
+
+# cv2.imwrite('RGB3white.png', RGB)
+# cv2.imwrite('HSV3white.png', HSV)
+# cv2.imwrite('HSL3white.png', HSL)
+# cv2.imwrite('gray1white.png', gray)

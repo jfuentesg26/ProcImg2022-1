@@ -8,15 +8,15 @@ def nothing(x):
 cv2.namedWindow('image')
 
 # create trackbars for color change
-cv2.createTrackbar('HMin','image',0,179,nothing) # Hue is from 0-179 for Opencv
+cv2.createTrackbar('HMin','image',0,255,nothing) # Hue is from 0-179 for Opencv
 cv2.createTrackbar('SMin','image',0,255,nothing)
 cv2.createTrackbar('VMin','image',0,255,nothing)
-cv2.createTrackbar('HMax','image',0,179,nothing)
+cv2.createTrackbar('HMax','image',0,255,nothing)
 cv2.createTrackbar('SMax','image',0,255,nothing)
 cv2.createTrackbar('VMax','image',0,255,nothing)
 
 # Set default value for MAX HSV trackbars.
-cv2.setTrackbarPos('HMax', 'image', 179)
+cv2.setTrackbarPos('HMax', 'image', 255)
 cv2.setTrackbarPos('SMax', 'image', 255)
 cv2.setTrackbarPos('VMax', 'image', 255)
 
@@ -42,7 +42,7 @@ while(1):
     # Set minimum and max HSV values to display
     lower = np.array([hMin, sMin, vMin])
     upper = np.array([hMax, sMax, vMax])
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
+    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     A_low = (img_rgb >= lower).all(axis = 2).astype(np.uint8)
     A_high = (img_rgb <= upper).all(axis = 2).astype(np.uint8)
     mask = np.logical_and(A_low, A_high).astype(np.uint8)
